@@ -1,0 +1,15 @@
+{
+  "name": "kwillox",
+  "version": "1.0.0",
+  "description": "This is a project to show susan how to use nodejs to develop a backend service",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "ridbay and susan",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
