@@ -8,9 +8,6 @@ app.use(express.json());
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: false }));
 
-// pricelessblinks;
-
-// kWvli4UJegEZRVZq;
 // Connect to MongoDB
 const MONGO_URI = process.env.MONGO_URI;
 
