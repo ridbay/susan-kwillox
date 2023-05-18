@@ -17,28 +17,7 @@ app.get("/", (request, response) => {
   return response.send("Kwillox server is running");
 });
 require("./routes/auth.routes")(app);
-// app.post("/register", async (request, response) => {
-//   const user = new User({
-//     name: req.body.name,
-//     email: req.body.email,
-//     password: req.body.password,
-//   });
-
-//   try {
-//     await user.save();
-//     res.status(201).json(user);
-//   } catch (err) {
-//     res.status(500).json(err);
-//   }
-
-//   return response.status(201).json({
-//     message: "Registeration successful",
-//     data: request.body,
-//   });
-// });
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
 });
-
-// module.exports = app;
