@@ -14,7 +14,9 @@ module.exports = function (app) {
         .notEmpty()
         .withMessage("First Name is required")
         .isAlpha()
-        .withMessage("First Name can only be alphabets"),
+        .withMessage("First Name can only be alphabets")
+        .isLength({ min: 2, max: 5 })
+        .withMessage("Minimum of 2 characters and maximum of 5"),
       check("last_name")
         .notEmpty()
         .withMessage("Last Name is required")
@@ -24,7 +26,11 @@ module.exports = function (app) {
         .notEmpty()
         .withMessage("Phone Number is required")
         .isNumeric()
-        .withMessage("Phone Number can only numeric"),
+        .withMessage("Phone Number can only numeric")
+        .isLength({ min: 10, max: 11 })
+        .withMessage(
+          "Phone Number must be minimum of 10 characters and maximum of 11"
+        ),
       check("age")
         .notEmpty()
         .withMessage("Age is required")

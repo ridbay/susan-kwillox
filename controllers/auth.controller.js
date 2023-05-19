@@ -1,15 +1,23 @@
 const UserModel = require("../models/User.model");
-
-exports.createUser = async (req, res) => {
-  const { email, password, first_name } = req.body;
+const bcryptJs = require("bcryptjs");
+exports.createUser = async (request, response) => {
+  //Destructure the Request Objects
+  const { email, password, first_name, last_name, age, phone_number } =
+    request.body;
 
   try {
-    const create_user = await UserModel.create(req.body);
+    //Hash the password the user input
+    const hashed_password = await bcryptJs.hash(password, 10);
 
-    console.log(create_user);
-    res.json({ data: req.body, status: "user crested successfully" });
+    const data_to_save = { ...request.body, password: hashed_password };
+    //Save the data to MongoDB through the Mongoose Model
+    const create_user = await UserModel.create(data_to_save);
+    //Return a response to the user after saving the data to the database
+    response
+      .status(201)
+      .json({ data: create_user, status: "user crested successfully" });
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    response.status(500).json({ error: err.message });
   }
 };
 
