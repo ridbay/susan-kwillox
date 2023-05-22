@@ -15,8 +15,8 @@ module.exports = function (app) {
         .withMessage("First Name is required")
         .isAlpha()
         .withMessage("First Name can only be alphabets")
-        .isLength({ min: 2, max: 5 })
-        .withMessage("Minimum of 2 characters and maximum of 5"),
+        .isLength({ min: 2 })
+        .withMessage("First Minimum of 2 characters"),
       check("last_name")
         .notEmpty()
         .withMessage("Last Name is required")
@@ -44,10 +44,10 @@ module.exports = function (app) {
           minLowercase: 1,
           minUppercase: 1,
           minNumbers: 1,
-          minSymbols: 2,
+          minSymbols: 1,
         })
         .withMessage(
-          "Password must be minimum of 2 characters, 1 lowercase, 1 uppercase, 1 number and 2 symbols"
+          "Password must be minimum of 2 characters, 1 lowercase, 1 uppercase, 1 number and 1 symbol"
         ),
     ],
     validateRequests,
@@ -69,10 +69,10 @@ module.exports = function (app) {
           minLowercase: 1,
           minUppercase: 1,
           minNumbers: 1,
-          minSymbols: 2,
+          minSymbols: 1,
         })
         .withMessage(
-          "Password must be minimum of 2 characters, 1 lowercase, 1 uppercase, 1 number and 2 symbols"
+          "Password must be minimum of 2 characters, 1 lowercase, 1 uppercase, 1 number and 1 symbol"
         ),
     ],
     validateRequests,

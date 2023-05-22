@@ -1,38 +1,80 @@
 const UserModel = require("../models/User.model");
 const bcryptJs = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 exports.createUser = async (request, response) => {
   //Destructure the Request Objects
   const { email, password, first_name, last_name, age, phone_number } =
     request.body;
 
   try {
-    //Hash the password the user input
-    const hashed_password = await bcryptJs.hash(password, 10);
+    //Check if the user email already exist
+    const user = await UserModel.findOne({ email });
+    if (user) {
+      response
+        .status(400)
+        .json({ data: null, message: "User already exist, please login" });
+    } else {
+      //Hash the password the user input
+      const hashed_password = await bcryptJs.hash(password, 10);
 
-    const data_to_save = { ...request.body, password: hashed_password };
-    //Save the data to MongoDB through the Mongoose Model
-    const create_user = await UserModel.create(data_to_save);
-    //Return a response to the user after saving the data to the database
-    response
-      .status(201)
-      .json({ data: create_user, status: "user crested successfully" });
+      const data_to_save = { ...request.body, password: hashed_password };
+      //Save the data to MongoDB through the Mongoose Model
+      const create_user = await UserModel.create(data_to_save);
+      //Return a response to the user after saving the data to the database
+      response
+        .status(201)
+        .json({ data: create_user, message: "user crested successfully" });
+    }
   } catch (err) {
     response.status(500).json({ error: err.message });
   }
 };
 
-exports.loginUser = async (req, res) => {
+exports.loginUser = async (request, response) => {
   try {
-    const { email, password } = req.body;
+    const email = request.body.email;
+    const user_password = request.body.password;
+    //Check if the user exist
     const find_user = await UserModel.findOne({ email: email });
+
     if (find_user) {
-      res
-        .status(200)
-        .json({ message: "user login successfully", data: find_user });
+      const { first_name, last_name, phone_number, age, password } = find_user;
+      //Check if the password matches
+      const password_matches = await bcryptJs.compare(user_password, password);
+      if (password_matches) {
+        const timestamp = Math.floor(Date.now() / 1000);
+        // console.log(timestamp);
+        let token = jwt.sign(
+          {
+            email: email,
+            first_name,
+            last_name,
+            phone_number,
+            iat: timestamp,
+          },
+          "Susan_Secret_Key",
+          {
+            algorithm: "HS512",
+            expiresIn: "1h",
+          }
+        );
+        response.status(200).json({
+          message: "user login successfully",
+          data: {
+            token,
+          },
+        });
+      } else {
+        response
+          .status(400)
+          .json({ message: "Login details incorrect", data: null });
+      }
     } else {
-      res.status(404).json({ message: "user not found", data: find_user });
+      response.status(404).json({ message: "user not found", data: null });
     }
+
+    //Generate a authentication token for all request
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    response.status(500).json({ error: err.message });
   }
 };

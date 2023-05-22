@@ -8,6 +8,14 @@ Last Name and Password
 2. Can log in using your Email address and Password
 3. Can see all available items (drinks and confectionery) uploaded by Admin.
 
+TODO:
+1. Verify JWT for logged in users
+2. Create Admin and User roles
+3. Admin can add items
+4. Admin can see all users
+5. Admin Can search for a user
+6. Users can see all items
+
 Admin:
 • Can see all registered users
 • Can search for users using their email addresses.
