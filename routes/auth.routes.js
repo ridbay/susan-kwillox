@@ -50,6 +50,9 @@ module.exports = function (app) {
         .withMessage(
           "Password must be minimum of 2 characters, 1 lowercase, 1 uppercase, 1 number and 1 symbol"
         ),
+      check("role")
+        .isIn(["admin", "user"])
+        .withMessage("Role must either be admin or user"),
     ],
     validateRequests,
     authController.createUser

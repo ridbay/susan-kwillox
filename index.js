@@ -17,6 +17,7 @@ app.get("/", (request, response) => {
   return response.send("Kwillox server is running");
 });
 require("./routes/auth.routes")(app);
+require("./routes/item.routes")(app);
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);

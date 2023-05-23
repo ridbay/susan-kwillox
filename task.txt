@@ -8,13 +8,6 @@ Last Name and Password
 2. Can log in using your Email address and Password
 3. Can see all available items (drinks and confectionery) uploaded by Admin.
 
-TODO:
-1. Verify JWT for logged in users
-2. Create Admin and User roles
-3. Admin can add items
-4. Admin can see all users
-5. Admin Can search for a user
-6. Users can see all items
 
 Admin:
 • Can see all registered users
@@ -29,5 +22,10 @@ GitLab (ensure you use a good commit message pattern)
 2. Document your API using postman and publish it.
 3. Include the link of your published documentation in your readme.md file
 
+
+TODO:
+
+4. Admin can see all users
+5. Admin Can search for a user
 
 

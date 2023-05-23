@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 require("dotenv");
 exports.createUser = async (request, response) => {
   //Destructure the Request Objects
-  const { email, password, first_name, last_name, age, phone_number } =
+  const { email, password, first_name, last_name, age, phone_number, role } =
     request.body;
 
   try {
@@ -24,7 +24,7 @@ exports.createUser = async (request, response) => {
       //Return a response to the user after saving the data to the database
       response
         .status(201)
-        .json({ data: create_user, message: "user crested successfully" });
+        .json({ data: create_user, message: "user created successfully" });
     }
   } catch (err) {
     response.status(500).json({ error: err.message });
@@ -39,7 +39,8 @@ exports.loginUser = async (request, response) => {
     const find_user = await UserModel.findOne({ email: email });
 
     if (find_user) {
-      const { first_name, last_name, phone_number, age, password } = find_user;
+      const { first_name, last_name, phone_number, age, password, role } =
+        find_user;
       //Check if the password matches
       const password_matches = await bcryptJs.compare(user_password, password);
       if (password_matches) {
@@ -52,6 +53,7 @@ exports.loginUser = async (request, response) => {
             last_name,
             age,
             phone_number,
+            role,
             iat: timestamp,
           },
           process.env.SECRET_KEY,

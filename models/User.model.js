@@ -9,6 +9,7 @@ const userSchema = new Schema(
     phone_number: String,
     age: Number,
     password: String,
+    role: String,
   },
   { timestamps: {} }
 );
