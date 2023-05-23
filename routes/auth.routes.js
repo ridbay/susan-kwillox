@@ -1,6 +1,7 @@
 const authController = require("../controllers/auth.controller");
 const { check, param, query } = require("express-validator");
 const validateRequests = require("../middleware/validateRequests");
+const validateAuthentication = require("../middleware/validateAuthentication");
 module.exports = function (app) {
   app.post(
     "/auth/register",
@@ -78,4 +79,5 @@ module.exports = function (app) {
     validateRequests,
     authController.loginUser
   );
+  app.get("/inbox", validateAuthentication, authController.inbox);
 };

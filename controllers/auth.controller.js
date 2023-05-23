@@ -1,6 +1,7 @@
 const UserModel = require("../models/User.model");
 const bcryptJs = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+require("dotenv");
 exports.createUser = async (request, response) => {
   //Destructure the Request Objects
   const { email, password, first_name, last_name, age, phone_number } =
@@ -49,10 +50,11 @@ exports.loginUser = async (request, response) => {
             email: email,
             first_name,
             last_name,
+            age,
             phone_number,
             iat: timestamp,
           },
-          "Susan_Secret_Key",
+          process.env.SECRET_KEY,
           {
             algorithm: "HS512",
             expiresIn: "1h",
@@ -74,6 +76,18 @@ exports.loginUser = async (request, response) => {
     }
 
     //Generate a authentication token for all request
+  } catch (err) {
+    response.status(500).json({ error: err.message });
+  }
+};
+
+exports.inbox = async (request, response) => {
+  try {
+    const { first_name, last_name, age, phone_number } = request.user;
+    response.status(200).json({
+      message: `Welcome ${first_name}, you are ${age} years old, your phone number is ${phone_number}`,
+      data: null,
+    });
   } catch (err) {
     response.status(500).json({ error: err.message });
   }
