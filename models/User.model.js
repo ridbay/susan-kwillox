@@ -11,7 +11,15 @@ const userSchema = new Schema(
     password: String,
     role: String,
   },
-  { timestamps: {} }
+  { timestamps: {} },
+  {
+    toJSON: {
+      transform(doc, ret) {
+        delete ret.password;
+        delete ret.__v;
+      },
+    },
+  }
 );
 
 module.exports = mongoose.model("User", userSchema);

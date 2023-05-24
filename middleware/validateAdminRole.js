@@ -13,7 +13,8 @@ module.exports = async (request, response, next) => {
     // Sentry.captureException(error);
     return response.status(500).json({
       status: false,
-      message: "Problems authorising",
+      message: "Unable to validate role",
+      error,
     });
   }
 };
