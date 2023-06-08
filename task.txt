@@ -7,14 +7,18 @@ Users:
 Last Name and Password
 2. Can log in using your Email address and Password
 3. Can see all available items (drinks and confectionery) uploaded by Admin.
+4. Can add items to cart
+5. Can check out cart items
+6. Can see a successful screen
 
 
 Admin:
 • Can see all registered users
 • Can search for users using their email addresses.
-•
-Can post a list of available items (drinks and confectionery) so users logged in
+• Can post a list of available items (drinks and confectionery) so users logged in
 can see
+• Can see all orders by the users.
+
 
 Mode of Submission
 1. Push your codebase to a public version control repository e.g., GitHub or
